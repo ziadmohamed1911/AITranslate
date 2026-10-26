@@ -107,6 +107,7 @@ textarea::placeholder{
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .lang-options{
@@ -114,6 +115,8 @@ textarea::placeholder{
     flex-direction: column;
     gap: 10px;
     align-self: flex-start;
+    width: 100%;
+    margin-left: 1.25em;
 }
 
 .lang-option{
@@ -130,14 +133,14 @@ textarea::placeholder{
 
 .lang-option img {
     border: 1px solid black;
-    margin-left: 10px;
+    margin-left: 0.625em;
 }
 
 .btn{
     font-family: "Poppins", sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
-    padding: 10px 0;
+    padding: 0.42em 0;
     width: 100%;
     border-radius: 6px;
     border: none;
