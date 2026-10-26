@@ -1,0 +1,41 @@
+*, *::after, *::before{
+     box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: "Poppins", sans-serif;;
+}
+
+header{
+    background: #181d46 url(/assets/images//worldmap.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5em;
+    gap: 15px;
+    min-height: 200px;
+}
+
+header img{
+    max-width: 100px;
+    max-width: 100px;
+}
+
+h1{
+    color: #32CD32;
+    font-size: 2.69rem;
+    font-weight: 800;
+    margin: 0;
+    font-family: "Big Shoulders", sans-serif;
+}
+
+header span{
+    color: #fff;
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
