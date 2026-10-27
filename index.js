@@ -62,9 +62,26 @@ async function translate (){
     }
 }
 
-function renderTranslation(orignal, translation){
-    originalText.value= orignal
+function autoResize(el) {
+    el.style.height = "auto"
+    el.style.height = el.scrollHeight + "px"
+}
+
+
+
+function renderTranslation(original, translation) {
+    originalText.value = original
     translationText.value = translation
     formSection.classList.add("hidden")
     translationSection.classList.remove("hidden")
+    autoResize(originalText)
+    autoResize(translationText)
 }
+
+
+window.addEventListener("resize", () => {
+    if (!translationSection.classList.contains("hidden")) {
+        autoResize(originalText)
+        autoResize(translationText)
+    }
+})
