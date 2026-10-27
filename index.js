@@ -1,87 +1,118 @@
+/* ---------- Elements ---------- */
+const translateForm = document.getElementById("translate-form")
 const textInput = document.getElementById("text-input")
 const translateBtn = document.getElementById("translate-btn")
 const resetBtn = document.getElementById("reset-btn")
 const originalText = document.getElementById("original-text")
 const translationText = document.getElementById("translation-text")
-const errorMsg= document.getElementById("error")
-const translationSection = document.getElementById("translation-section")
+const errorMsg = document.getElementById("error")
 const formSection = document.getElementById("form-section")
+const translationSection = document.getElementById("translation-section")
 
+const sections = [formSection, translationSection]
+const textareas = [textInput, originalText, translationText]
 
-translateBtn.addEventListener("click", function(e){
+/* ---------- Messages ---------- */
+const BUTTON_TEXT = { idle: "Translate", loading: "Translating..." }
+const EMPTY_TEXT_MESSAGE = "Please type some text to translate."
+const DEFAULT_ERROR_MESSAGE = "Sorry, something went wrong. Please try again in a moment."
+const ERROR_MESSAGES = {
+    400: "Your text is empty or too long (1,000 characters max).",
+    429: "Too many requests. Please wait a minute and try again."
+}
+
+/* ---------- Events ---------- */
+translateForm.addEventListener("submit", (e) => {
     e.preventDefault()
     translate()
 })
 
-resetBtn.addEventListener("click", (e)=>{
-    e.preventDefault()
-    textInput.value = ""
-    originalText.value = ""
-    translationText.value = ""
-    errorMsg.textContent = ""
-    document.querySelector(`input[name="lang"]`).checked = true
-    translationSection.classList.add("hidden")
-    formSection.classList.remove("hidden")
-    textInput.focus()
-})
+resetBtn.addEventListener("click", resetApp)
 
+textInput.addEventListener("input", () => autoResize(textInput))
 
-async function translate (){
+window.addEventListener("resize", resizeVisibleTextareas)
+
+/* ---------- Main flow ---------- */
+async function translate() {
     errorMsg.textContent = ""
+
     const text = textInput.value.trim()
-    if(!text){
-        errorMsg.textContent = "Please type some text to translate."
+    if (!text) {
+        errorMsg.textContent = EMPTY_TEXT_MESSAGE
         return
     }
 
-    const selectedLang = document.querySelector(`input[name="lang"]:checked`).value
+    setLoading(true)
 
-    translateBtn.disabled = true
-    translateBtn.textContent = "Translating...."
-
-   
-    try{
-        
-        const response = await fetch("/api/translate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text, lang: selectedLang })
-        })
-
-        if(!response.ok){
-            throw new Error(`Request faild ${response.status}`)
-        }
-        const data = await response.json()
-        renderTranslation(text, data.translation)
-    }catch(err){
+    try {
+        const translation = await requestTranslation(text, getSelectedLang())
+        renderTranslation(text, translation)
+    } catch (err) {
         console.error(err)
-       errorMsg.textContent = "sorry try again in a moment"
-    }finally{
-        translateBtn.disabled = false
-        translateBtn.textContent = "translate"
+        errorMsg.textContent = ERROR_MESSAGES[err.status] ?? DEFAULT_ERROR_MESSAGE
+    } finally {
+        setLoading(false)
     }
 }
 
-function autoResize(el) {
-    el.style.height = "auto"
-    el.style.height = el.scrollHeight + "px"
+async function requestTranslation(text, lang) {
+    const response = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, lang })
+    })
+
+    if (!response.ok) {
+        const error = new Error(`Request failed: ${response.status}`)
+        error.status = response.status
+        throw error
+    }
+
+    const data = await response.json()
+    return data.translation
 }
-
-
 
 function renderTranslation(original, translation) {
     originalText.value = original
     translationText.value = translation
-    formSection.classList.add("hidden")
-    translationSection.classList.remove("hidden")
-    autoResize(originalText)
-    autoResize(translationText)
+    showSection(translationSection)
+    resizeVisibleTextareas() // must run after the section is visible
 }
 
+function resetApp() {
+    translateForm.reset() // clears the textarea and restores the default radio
+    originalText.value = ""
+    translationText.value = ""
+    errorMsg.textContent = ""
+    showSection(formSection)
+    autoResize(textInput)
+    textInput.focus()
+}
 
-window.addEventListener("resize", () => {
-    if (!translationSection.classList.contains("hidden")) {
-        autoResize(originalText)
-        autoResize(translationText)
-    }
-})
+/* ---------- Helpers ---------- */
+function getSelectedLang() {
+    return document.querySelector(`input[name="lang"]:checked`).value
+}
+
+function setLoading(isLoading) {
+    translateBtn.disabled = isLoading
+    translateBtn.textContent = isLoading ? BUTTON_TEXT.loading : BUTTON_TEXT.idle
+}
+
+function showSection(sectionToShow) {
+    sections.forEach((section) => {
+        section.classList.toggle("hidden", section !== sectionToShow)
+    })
+}
+
+function autoResize(el) {
+    el.style.height = "auto"
+    el.style.height = `${el.scrollHeight}px`
+}
+
+function resizeVisibleTextareas() {
+    textareas.forEach((el) => {
+        if (el.offsetParent !== null) autoResize(el) // hidden elements have no offsetParent
+    })
+}

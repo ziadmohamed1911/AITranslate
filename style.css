@@ -1,52 +1,68 @@
-/* basic */
+/* ===== Base ===== */
+:root {
+    --color-header: #181d46;
+    --color-title: #32cd32;
+    --color-primary: #035a9d;
+    --color-primary-dark: #013155;
+    --color-border: #252f42;
+    --color-surface: #eff0f4;
+    --color-text: #333333;
+    --color-error: #ce2020;
 
-
-
-*, *::after, *::before{
-     box-sizing: border-box;
+    --font-body: "Poppins", sans-serif;
+    --font-title: "Big Shoulders", sans-serif;
 }
 
-body{
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
     margin: 0;
-    font-family: "Poppins", sans-serif;
+    font-family: var(--font-body);
 }
 
+textarea,
+button {
+    font-family: inherit;
+}
 
-/* layout */
-header{
-    background: #181d46 url(/assets/images//worldmap.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+.hidden {
+    display: none !important;
+}
+
+/* ===== Header ===== */
+header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2.5em;
     gap: 15px;
+    padding: 2.5em;
     min-height: 200px;
+    background: var(--color-header) url(/assets/images/worldmap.png) center / cover no-repeat;
 }
 
-header img{
-    max-width: 100px;
+header img {
     max-width: 100px;
 }
 
-h1{
-    color: #32CD32;
+h1 {
+    margin: 0;
+    color: var(--color-title);
+    font-family: var(--font-title);
     font-size: 2.69rem;
     font-weight: 800;
-    margin: 0;
-    font-family: "Big Shoulders", sans-serif;
 }
 
-header span{
-    color: #fff;
+header span {
     margin: 0;
+    color: #fff;
     font-size: 0.75rem;
     font-weight: 500;
 }
 
-section{
+/* ===== Layout ===== */
+section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,121 +70,107 @@ section{
     padding: 20px;
 }
 
-.error{
-    color: rgb(206, 32, 32);
-}
-
-/* form */
-form,
-.translate-section{
-    margin-top: 0.93em;
+.card {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    border: 4px solid #252F42;
-    padding: 1.88em 2.75em;
+    align-items: center;
     gap: 20px;
+    margin-top: 0.93em;
+    padding: 1.88em 2.75em;
+    border: 4px solid var(--color-border);
     border-radius: 16px;
 }
 
-.form-top,
-.section-top{
+.field-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
 }
 
-label, 
-.form-bottom p{
-    font-size: 1.25rem;
-    color: #035A9D;
-    font-weight: 700;
-    font-family: "Poppins", sans-serif;
-}
-
-textarea{
-    padding: 10px;
-    min-height: 118px;
-    min-width: 317px;
-    border: none;
-    background-color: #EFF0F4;
-    border-radius: 8px;
-    font-family: "Poppins", sans-serif;
-    font-size: 1.25rem;
-}
-
-#orignal-text,
-#translation-text,
-#text-input {
-    resize: none;
-    overflow: hidden;
-    min-height: 118px;
-}
-
-textarea:focus{
-    outline: none;
-}
-
-textarea::placeholder{
-    font-family: "Poppins", sans-serif;
-    font-size: 1.25rem;
-}
-
-.form-bottom,
-.section-bottom{
+.form-bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
 
-.lang-options{
+/* ===== Text ===== */
+label,
+.form-bottom p {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.error {
+    margin: 0;
+    color: var(--color-error);
+}
+
+/* ===== Textareas ===== */
+textarea {
+    min-width: 317px;
+    min-height: 118px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-surface);
+    font-size: 1.25rem;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.text-input {
+    resize: none;
+    overflow: hidden;
+}
+
+/* ===== Language options ===== */
+.lang-options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-self: flex-start;
+    gap: 10px;
     width: 100%;
     margin-left: 1.25em;
 }
 
-.lang-option{
+.lang-option {
     display: flex;
     align-items: center;
     gap: 9px;
 }
 
-.lang-option label{
+.lang-option label {
+    color: var(--color-text);
     font-size: 1.25rem;
-    color: #333333;
     font-weight: 600;
 }
 
 .lang-option img {
-    border: 1px solid black;
     margin-left: 0.625em;
+    border: 1px solid black;
 }
 
-.btn{
-    font-family: "Poppins", sans-serif;
+/* ===== Button ===== */
+.btn {
+    width: 100%;
+    padding: 0.42em 0;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--color-primary);
+    color: #fff;
     font-size: 1.5rem;
     font-weight: 700;
-    padding: 0.42em 0;
-    width: 100%;
-    border-radius: 6px;
-    border: none;
-    background-color: #035A9D;
-    color: #fff;
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
 
 .btn:hover,
-.btn:focus{
-    background-color: #013155;
-}
-
-.hidden{
-    display: none !important;
+.btn:focus {
+    background-color: var(--color-primary-dark);
 }
