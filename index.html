@@ -24,32 +24,48 @@
         </div>
     </header>
     <main>
-        <section>
-            <form class="translate-form">
+        <section id="form-section">
+            <form>
                 <div class="form-top">
                     <label for="text-input">Text to translate 👇</label>
-                    <textarea id="text-input" class="text-input" placeholder="Enter your text"></textarea>
+                    <textarea id="text-input" class="text-input" placeholder="Enter your text" required></textarea>
                 </div>
                 <div class="form-bottom">
                     <p>Select language 👇</p>
                     <div class="lang-options">
                         <div class="lang-option">
-                            <input type="radio" id="french" name="lang" value="french">
+                            <input type="radio" id="french" name="lang" value="French">
                             <label for="french">French<img class="flag" src="/assets/images/fr-flag.png" alt="France flag"></label>
                         </div>
 
                         <div class="lang-option">
-                            <input type="radio" id="spanish" name="lang" value="spanish">
+                            <input type="radio" id="spanish" name="lang" value="Spanish" checked>
                             <label for="spanish">Spanish<img class="flag" src="/assets/images/sp-flag.png" alt="Spain flag"></label>
                         </div>
 
                         <div class="lang-option">
-                            <input type="radio" id="japanese" name="lang" value="japanese">
+                            <input type="radio" id="japanese" name="lang" value="Japanese">
                             <label for="japanese">Japanese<img class="flag" src="/assets/images/jpn-flag.png" alt="Japan flag"></label>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn" id="btn">Translate</button>
+                <button type="submit" class="btn" id="translate-btn">Translate</button>
+                <p id="error" class="error"></p>
+            </form>
+        </section>
+        <section id="translation-section" class="hidden">
+            <form>
+                <div class="form-top">
+                    <label for="original-text">Original text</label>
+                    <textarea id="original-text" class="text-input" readonly></textarea>
+                </div>
+
+                <div class="section-bottom">
+                    <label for="translation-text">Your translation</label>
+                    <textarea id="translation-text" class="text-input" readonly></textarea>
+                </div>
+
+                <button type="button" class="btn" id="reset-btn">Start Over</button>
             </form>
         </section>
     </main>

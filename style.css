@@ -54,9 +54,13 @@ section{
     padding: 20px;
 }
 
+.error{
+    color: rgb(206, 32, 32);
+}
 
 /* form */
-form{
+form,
+.translate-section{
     margin-top: 0.93em;
     display: flex;
     flex-direction: column;
@@ -68,14 +72,15 @@ form{
     border-radius: 16px;
 }
 
-.form-top{
+.form-top,
+.section-top{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
 }
 
-.form-top label, 
+label, 
 .form-bottom p{
     font-size: 1.25rem;
     color: #035A9D;
@@ -92,6 +97,7 @@ textarea{
     border-radius: 8px;
     font-family: "Poppins", sans-serif;
     font-size: 1.25rem;
+    resize: none;
 }
 
 textarea:focus{
@@ -103,7 +109,8 @@ textarea::placeholder{
     font-size: 1.25rem;
 }
 
-.form-bottom{
+.form-bottom,
+.section-bottom{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -153,4 +160,8 @@ textarea::placeholder{
 .btn:hover,
 .btn:focus{
     background-color: #013155;
+}
+
+.hidden{
+    display: none !important;
 }
