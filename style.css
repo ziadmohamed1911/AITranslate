@@ -100,7 +100,8 @@ textarea{
 }
 
 #orignal-text,
-#translation-text {
+#translation-text,
+#text-input {
     resize: none;
     overflow: hidden;
     min-height: 118px;
