@@ -6,7 +6,7 @@ An AI-powered translator web app. Type a text, pick a language, and get a natura
 
 > The app runs on a free Render instance, so the first visit after a period of inactivity can take up to a minute while the server wakes up.
 
-[PollyGlot screenshot](assets/images/screenshot.png)
+![PollyGlot screenshot](assets/images/screenshot.png)
 
 ## Features
 
